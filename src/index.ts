@@ -1,8 +1,10 @@
 import Server from "./providers/Server";
 import express from 'express';
 import cors from 'cors';
-import UserController from "./controllers/UserController";
-import AuthenticationController from "./controllers/AuthenticationController";
+import CreadorController from "./controllers/CreadorController";
+import TrabajadorController from "./controllers/TrabajadorController";
+import RecaudacionController from "./controllers/RecaudacionController";
+import { MONGO_URI } from "./config";
 
 const servidor = new Server({
     port:8080,
@@ -12,10 +14,12 @@ const servidor = new Server({
         cors()
     ],
     controllers:[
-        UserController.getInstance(),
-        AuthenticationController.getInstance()
+        CreadorController.getInstance(),
+        RecaudacionController.getInstance(),
+        TrabajadorController.getInstance()
     ],
-    env:'development'
+    env:'development',
+    mongo_uri:MONGO_URI
 });
 
 declare global{

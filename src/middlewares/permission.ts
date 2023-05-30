@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
+import { HydratedDocument } from "mongoose";
 // Models
-//import PostModel from '../models/post.model';
-import  UserModel, { UserRoles } from '../modelsNOSQL/userNOSQL';
+import IUser, { UserModel } from "../models/User"
 
 
 export default class PermissionMiddleware {
@@ -16,38 +16,18 @@ export default class PermissionMiddleware {
 	}
 
 	/**
-	 * Verify that the current user is an Supervisor
+	 * Verify that the current user is an Trabajador
 	 */
-	public async checkIsSupervisor(req: Request, res: Response, next: NextFunction): Promise<void> {
+	public async checkIsTrabajador(req: Request, res: Response, next: NextFunction): Promise<void> {
 		try {
-			const user = await UserModel.get(req.user, '', {
-				AttributesToGet: ['role'],
-			});
-			if (user.attrs.role === UserRoles.SUPERVISOR) {
+			const user: HydratedDocument<IUser> | null = await UserModel.findOne({aws_cognito: req.user});
+			if (user != null && user.role === "Trabajador") {
 				next();
 			} else {
-				res.status(401).send({ code: 'UserNotSupervisorException', message: 'The logged account is not an supervisor' });
+				res.status(401).send({ code: 'UserNotTrabajadorException', message: 'The logged account is not a trabajador' });
 			}
 		} catch (error:any) {
 			res.status(500).send({ code: error.code, message: error.message });
 		}
 	}
-
-	/**
-	 * Verify that the current user is an admin
-	 */
-	public async checkIsAdmin(req: Request, res: Response, next: NextFunction): Promise<void> {
-			try {
-				const user = await UserModel.get(req.user, '', {
-					AttributesToGet: ['role'],
-				});
-				if (user.attrs.role === UserRoles.ADMIN) {
-					next();
-				} else {
-					res.status(401).send({ code: 'UserNotAdminException', message: 'The logged account is not an admin' });
-				}
-			} catch (error:any) {
-				res.status(500).send({ code: error.code, message: error.message });
-			}
-		}
 }
