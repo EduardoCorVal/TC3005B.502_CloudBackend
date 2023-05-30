@@ -1,8 +1,7 @@
 import { Request,Response } from "express";
 import AbstractController from "./AbstractController";
-import { campanaModel } from "../models/Campana";
-import { UserModel, IUser } from "../models/User";
-import { ICampana } from "../models/Campana";
+import { UserModel, IUser } from "./../models/User";
+import { ICampana, campanaModel } from "./../models/Campana";
 import mongoose, { HydratedDocument } from "mongoose";
 
 class RecaudacionController extends AbstractController{

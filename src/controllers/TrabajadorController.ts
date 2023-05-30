@@ -1,6 +1,6 @@
 import { Request,Response } from "express";
 import AbstractController from "./AbstractController";
-import ICampana, { campanaModel } from "../models/Campana";
+import ICampana, { campanaModel } from "./../models/Campana";
 
 class TrabajadorController extends AbstractController{
     private campana_model_ = campanaModel;

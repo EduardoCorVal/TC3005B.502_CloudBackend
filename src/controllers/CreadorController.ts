@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { checkSchema } from "express-validator";
 import AbstractController from "./AbstractController";
-import {UserModel} from "../models/User"
+import {UserModel} from "./../models/User"
 class CreadorController extends AbstractController{
     protected validateBody(type: any) {
         throw new Error("Method not implemented.");
@@ -21,22 +21,7 @@ class CreadorController extends AbstractController{
         this.router.post('/signup',this.signup.bind(this));
         this.router.post('/verificar',this.verify.bind(this));
         this.router.post('/signin',this.signin.bind(this));
-        // this.router.get('/testTokenRole',
-        //                 this.authMiddleware.verifyToken,
-        //                 this.permissionMiddleware.checkIsAdmin,
-        //                 this.testTokenRole.bind(this)
-        //                 )
-        // Se usarán como referencia para proteger rutas
     }
-
-    // private async testTokenRole(req:Request,res:Response){
-    //     res.status(200).send("Esto es una prueba de verificación de token y Role").end();
-    // }
-
-    // private async test(req:Request,res:Response){
-    //     res.status(200).send("Esto es una prueba de verificación").end();
-    // }
-    
 
     private async signin(req:Request,res:Response){
         const {email, password} = req.body;

@@ -1,7 +1,7 @@
 import { Response, Request, NextFunction } from 'express';
 import { HydratedDocument } from "mongoose";
 // Models
-import IUser, { UserModel } from "../models/User"
+import IUser, { UserModel } from "./../models/User"
 
 
 export default class PermissionMiddleware {

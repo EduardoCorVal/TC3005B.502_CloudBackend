@@ -1,6 +1,4 @@
 import { Router } from "express";
-import { AWSError,CognitoIdentityServiceProvider } from "aws-sdk";
-import { PromiseResult } from "aws-sdk/lib/request";
 
 //Middlewares
 import ValidationErrorMiddleware from "../middlewares/validationError";
